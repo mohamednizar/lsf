@@ -1,0 +1,15 @@
+{
+    "name": "lsf/sleas-api",
+    "description": "SLEAS RestFull API for consume data for web application",
+    "type": "project",
+    "require": {
+        "phroute/phroute": "1.*"
+    },
+    "license": "Apache License",
+    "authors": [
+        {
+            "name": "nizar",
+            "email": "nizarm@opensource.lk"
+        }
+    ]
+}
