@@ -1,4 +1,5 @@
 <?php
+namespace Lib;
 
 class SQLQuery {
     protected $_dbHandle;
@@ -56,7 +57,8 @@ class SQLQuery {
             $table_info = mysqli_fetch_field_direct($this->_result,$i);
 		    array_push($table,($table_info->table));
 		    array_push($field,($table_info->name));
-		}
+        }
+        
 
 		
 			while ($row = mysqli_fetch_row($this->_result)) {
@@ -65,11 +67,13 @@ class SQLQuery {
 					$tempResults[$table[$i]][$field[$i]] = $row[$i];
 				}
 				if ($singleResult == 1) {
-		 			mysqli_free_result($this->_result);
+                     mysqli_free_result($this->_result);
 					return $tempResults;
-				}
+                }
+                
 				array_push($result,$tempResults);
-			}
+            }
+            
 			mysqli_free_result($this->_result);
 			return($result);
 		}

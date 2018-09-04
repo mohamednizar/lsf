@@ -1,0 +1,894 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "This is the CS-HRM api server. Here you find all APIs related to the system. The api can be find on github",
+    "version": "1.0.0",
+    "title": "CS-HRM",
+    "termsOfService": "",
+    "contact": {
+      "email": "nizarm@opensource.lk"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user",
+      "externalDocs": {
+        "description": "Find out more about our project on git",
+        "url": "https://github.com/LankaSoftwareFoundation/MoE-SLEAS-HRM"
+      }
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "description": "Created user object",
+          "required": true
+        }
+      }
+    },
+    "/user/createWithArray": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates list of users with given input array",
+        "description": "",
+        "operationId": "createUsersWithArrayInput",
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserArray"
+        }
+      }
+    },
+    "/user/createWithList": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates list of users with given input array",
+        "description": "",
+        "operationId": "createUsersWithListInput",
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserArray"
+        }
+      }
+    },
+    "/user/list/{pageId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "list of users with given page as pagination",
+        "description": "",
+        "operationId": "listEmployees",
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "path",
+            "description": "The page id should be provided",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Personal_Details"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Personal_Details"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "X-Expires-After": {
+                "description": "date in UTC when token expires",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "description": "The user name for login",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "The password for login in clear text",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
+      }
+    },
+    "/user/{username}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by user name",
+        "description": "",
+        "operationId": "getUserByName",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be fetched. Use user1 for testing. ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updated user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "description": "Updated user object",
+          "required": true
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
+      }
+    },
+    "/user/uploadpic/{userId}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "uploads an image",
+        "description": "",
+        "operationId": "uploadImage",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/uploadImage"
+        }
+      }
+    },
+    "/user/uploaddoc/{userId}": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "uploads Employee related files",
+        "description": "",
+        "operationId": "uploadFile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/uploadImage"
+        }
+      }
+    },
+    "/user/statusUpdate": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Status  update",
+        "description": "Activate and deactivate an Employee",
+        "operationId": "statusUpdate",
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/General_Service"
+              }
+            }
+          },
+          "description": "Status update user object",
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "cs_auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "requestBodies": {
+      "UserArray": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "description": "List of user object",
+        "required": true
+      },
+      "uploadImage": {
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "additionalMetadata": {
+                  "description": "Additional data to pass to server",
+                  "type": "string"
+                },
+                "file": {
+                  "description": "file to upload",
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "user_name": {
+            "type": "string"
+          },
+          "passwd": {
+            "type": "string",
+            "format": "password"
+          },
+          "name": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "workplace_id": {
+            "type": "integer"
+          },
+          "sub_location_id": {
+            "type": "string"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "Personal_Details": {
+            "$ref": "#/components/schemas/Personal_Details"
+          },
+          "Permanent_Contact_Details": {
+            "$ref": "#/components/schemas/Contact_Details"
+          },
+          "Temparary_Contact_Details": {
+            "$ref": "#/components/schemas/Contact_Details"
+          },
+          "General_Service": {
+            "$ref": "#/components/schemas/General_Service"
+          },
+          "Current_Service": {
+            "$ref": "#/components/schemas/Current_Service"
+          }
+        }
+      },
+      "Personal_Details": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "NIC": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "f_name": {
+            "type": "string",
+            "description": "First Name of the Employee"
+          },
+          "l_name": {
+            "type": "string",
+            "description": "Last Name of the Employee"
+          },
+          "m_name": {
+            "type": "string",
+            "description": "Middle Name of the Employee"
+          },
+          "in_name": {
+            "type": "string",
+            "description": "Name with Initials  of the Employee"
+          },
+          "si_in_name": {
+            "type": "string",
+            "description": "Fullname  of the Employee in Sinhala"
+          },
+          "ta_in_name": {
+            "type": "string",
+            "description": "Fullname  of the Employee in Tamil"
+          },
+          "dob": {
+            "type": "integer"
+          },
+          "ethinicity": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "civil_status": {
+            "type": "string"
+          },
+          "f_appoint_data": {
+            "type": "integer"
+          },
+          "f_appoint_type": {
+            "type": "string"
+          },
+          "active": {
+            "type": "string"
+          },
+          "profile_pic": {
+            "type": "string"
+          },
+          "user_updated": {
+            "type": "string"
+          }
+        }
+      },
+      "Contact_Details": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "address_type": {
+            "type": "string"
+          },
+          "address_1": {
+            "type": "string"
+          },
+          "address_2": {
+            "type": "string"
+          },
+          "address_3": {
+            "type": "string"
+          },
+          "postal_code": {
+            "type": "integer"
+          },
+          "mobile": {
+            "type": "integer"
+          },
+          "telephone": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "General_Service": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "date_join": {
+            "type": "string",
+            "format": "date"
+          },
+          "way_join": {
+            "type": "string",
+            "description": "Way of join to MoE"
+          },
+          "cadre": {
+            "type": "string"
+          },
+          "grade_join": {
+            "type": "string"
+          },
+          "entrance_exam_rank": {
+            "type": "integer"
+          },
+          "grade": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "integer"
+          },
+          "medium": {
+            "type": "string"
+          },
+          "confirm": {
+            "type": "string"
+          },
+          "confirm_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "promotion_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "f_appoint_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "eb_1_pass": {
+            "type": "string",
+            "format": "date"
+          },
+          "eb_2_pass": {
+            "type": "string",
+            "format": "date"
+          },
+          "eb_3_pass": {
+            "type": "string",
+            "format": "date"
+          },
+          "pg_dip_pass": {
+            "type": "string",
+            "format": "date"
+          },
+          "pg_deg_pass": {
+            "type": "string",
+            "format": "date"
+          },
+          "cb_1_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "cb_2_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "cb_3_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "status": {
+            "type": "string"
+          },
+          "deactivate_type_id": {
+            "type": "integer"
+          },
+          "deactivate_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "Current_Service": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "person_id": {
+            "type": "integer"
+          },
+          "service_mode": {
+            "type": "integer"
+          },
+          "service_status": {
+            "type": "string"
+          },
+          "work_place_id": {
+            "type": "integer"
+          },
+          "sub_location_id": {
+            "type": "integer"
+          },
+          "work_branch_id": {
+            "type": "integer"
+          },
+          "work_division_id": {
+            "type": "integer"
+          },
+          "designation_id": {
+            "type": "integer"
+          },
+          "appoint_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "duty_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "duty_date_terminate": {
+            "type": "string",
+            "format": "date"
+          },
+          "off_letter_no": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "string"
+          },
+          "date_promoted": {
+            "type": "string",
+            "format": "date"
+          },
+          "salary_drawned": {
+            "type": "string"
+          },
+          "barcode": {
+            "type": "integer"
+          },
+          "user_updated": {
+            "type": "integer"
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://localhost/v2"
+    },
+    {
+      "url": "http://localhost/v2"
+    }
+  ]
+}

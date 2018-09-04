@@ -1,4 +1,5 @@
 <?php
+namespace Lib;
 class Model extends SQLQuery {
 	protected $_model;
 

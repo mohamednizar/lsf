@@ -2,10 +2,22 @@
     "name": "lsf/sleas-api",
     "description": "SLEAS RestFull API for consume data for web application",
     "type": "project",
-    "require": {
-        "phroute/phroute": "1.*"
-    },
     "license": "Apache License",
+    "require": 
+        { 
+        "phroute/phroute": "1.*",
+        "dsheiko/validate": "^1.1",
+        "lcobucci/jwt": "^3.2",
+        "zircote/swagger-php": "^3.0"
+        } ,
+    "autoload": {
+            "psr-0": {
+                "Lib\\": "library/",
+                "Controllers\\":"App/controllers/",
+                "Models\\":"App/models",
+                "Interfaces\\":"App/interfaces"
+            }
+    },
     "authors": [
         {
             "name": "nizar",
