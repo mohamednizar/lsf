@@ -44,4 +44,12 @@ services:
       PMA_HOST: db
     ports:
       - 8080:80
+  sleas-swagger:
+    image: swaggerapi/swagger-ui
+    environment:
+      - SWAGGER_JSON=./sleas-swagger/www/swagger.json
+    volumes:
+      - ./sleas-swagger/www/:/var/www/html
+    restart: always
+    ports:   ["1337:8080"]
      
