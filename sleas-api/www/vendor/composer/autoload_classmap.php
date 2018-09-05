@@ -80,6 +80,7 @@ return array(
     'Firebase\\JWT\\JWT' => $vendorDir . '/firebase/php-jwt/src/JWT.php',
     'Firebase\\JWT\\SignatureInvalidException' => $vendorDir . '/firebase/php-jwt/src/SignatureInvalidException.php',
     'Interfaces\\ApiInterface' => $baseDir . '/App/interfaces/ApiInterface.php',
+    'Interfaces\\LoginInterface' => $baseDir . '/App/interfaces/LoginInterface.php',
     'Lcobucci\\JWT\\Builder' => $vendorDir . '/lcobucci/jwt/src/Builder.php',
     'Lcobucci\\JWT\\Claim' => $vendorDir . '/lcobucci/jwt/src/Claim.php',
     'Lcobucci\\JWT\\Claim\\Basic' => $vendorDir . '/lcobucci/jwt/src/Claim/Basic.php',

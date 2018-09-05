@@ -27,7 +27,6 @@ class LoginController extends Controller
 
         $v->IsString($uname, ["minLength" => 4, 'NotEmpty' => true])
             ->IsString($pwd, ["minLength" => 4]);
-
         try {
             if ($v->isValid()) {
                 $chk_login = $this->User->check_login($uname, $pwd);

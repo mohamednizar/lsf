@@ -16,7 +16,7 @@
   "tags": [
     {
       "name": "user",
-      "description": "Operations about user",
+      "description": "Operations about employees in the system",
       "externalDocs": {
         "description": "Find out more about our project on git",
         "url": "https://github.com/LankaSoftwareFoundation/MoE-SLEAS-HRM"
@@ -24,19 +24,19 @@
     }
   ],
   "paths": {
-    "/user": {
+    "/employee": {
       "post": {
         "tags": [
           "user"
         ],
-        "summary": "Create user",
-        "description": "This can only be done by the logged in user.",
+        "summary": "Create an Employee",
+        "description": "This can only be done by the logged in user with permission for create employees.",
         "operationId": "createUser",
         "security": [
           {
             "cs_auth": [
-              "write:user",
-              "read:user"
+              "write:employee",
+              "read:employee"
             ]
           }
         ],
@@ -58,12 +58,12 @@
         }
       }
     },
-    "/user/createWithArray": {
+    "/employee/createWithArray": {
       "post": {
         "tags": [
           "user"
         ],
-        "summary": "Creates list of users with given input array",
+        "summary": "Creates list of Employees with given input array",
         "description": "",
         "operationId": "createUsersWithArrayInput",
         "responses": {
@@ -84,12 +84,12 @@
         }
       }
     },
-    "/user/createWithList": {
+    "/employee/createWithList": {
       "post": {
         "tags": [
           "user"
         ],
-        "summary": "Creates list of users with given input array",
+        "summary": "Creates list of Employees with given input array",
         "description": "",
         "operationId": "createUsersWithListInput",
         "responses": {
@@ -110,7 +110,7 @@
         }
       }
     },
-    "/user/list/{pageId}": {
+    "/employee/list/{pageId}": {
       "get": {
         "tags": [
           "user"
@@ -163,86 +163,20 @@
         ]
       }
     },
-    "/user/login": {
+    "/user/register": {
       "post": {
         "tags": [
           "user"
         ],
-        "summary": "Logs user into the system",
-        "description": "",
-        "operationId": "loginUser",
+        "summary": "Register a user",
+        "description": "This can only be done by anyone with IDM-Gov",
+        "operationId": "updateUser",
         "responses": {
-          "200": {
-            "description": "successful operation",
-            "headers": {
-              "X-Rate-Limit": {
-                "description": "calls per hour allowed by the user",
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "X-Expires-After": {
-                "description": "date in UTC when token expires",
-                "schema": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            },
-            "content": {
-              "application/xml": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "400": {
-            "description": "Invalid username/password supplied"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "description": "The user name for login",
-                    "type": "string"
-                  },
-                  "password": {
-                    "description": "The password for login in clear text",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "username",
-                  "password"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/logout": {
-      "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Logs out current logged in user session",
-        "description": "",
-        "operationId": "logoutUser",
-        "responses": {
-          "default": {
-            "description": "successful operation"
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
           }
         },
         "security": [
@@ -252,7 +186,18 @@
               "read:user"
             ]
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "description": "Updated user object",
+          "required": true
+        }
       }
     },
     "/user/{username}": {
@@ -388,6 +333,98 @@
         ]
       }
     },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {
+              "X-Rate-Limit": {
+                "description": "calls per hour allowed by the user",
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "X-Expires-After": {
+                "description": "date in UTC when token expires",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "description": "The user name for login",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "The password for login in clear text",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
+      }
+    },
     "/user/uploadpic/{userId}": {
       "post": {
         "tags": [
@@ -429,16 +466,87 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/uploadImage"
+          "$ref": "#/components/requestBodies/uploadAttachements"
         }
       }
     },
-    "/user/uploaddoc/{userId}": {
+    "/employee/employeeAttachments": {
       "post": {
         "tags": [
           "user"
         ],
         "summary": "uploads Employee related files",
+        "description": "",
+        "operationId": "uploadFile",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/uploadAttachements"
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Read Employee related files",
+        "description": "",
+        "operationId": "readFile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update Employee related files",
         "description": "",
         "operationId": "uploadFile",
         "parameters": [
@@ -474,8 +582,56 @@
           }
         ],
         "requestBody": {
-          "$ref": "#/components/requestBodies/uploadImage"
+          "$ref": "#/components/requestBodies/uploadAttachements"
         }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update Employee related files",
+        "description": "",
+        "operationId": "deleteFile",
+        "parameters": [
+          {
+            "name": "fileInfo",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer"
+                  },
+                  "fileId": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cs_auth": [
+              "write:user",
+              "read:user"
+            ]
+          }
+        ]
       }
     },
     "/user/statusUpdate": {
@@ -536,7 +692,7 @@
         "description": "List of user object",
         "required": true
       },
-      "uploadImage": {
+      "uploadAttachements": {
         "content": {
           "multipart/form-data": {
             "schema": {
@@ -550,6 +706,10 @@
                   "description": "file to upload",
                   "type": "string",
                   "format": "binary"
+                },
+                "userId": {
+                  "description": "Employee id",
+                  "type": "string"
                 }
               }
             }
@@ -561,16 +721,19 @@
       "User": {
         "type": "object",
         "properties": {
-          "id": {
+          "ID": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "description": "Employee index"
           },
           "user_name": {
-            "type": "string"
+            "type": "string",
+            "description": "username of the employee"
           },
           "passwd": {
             "type": "string",
-            "format": "password"
+            "format": "password",
+            "description": "password of the employee"
           },
           "name": {
             "type": "string"
@@ -579,7 +742,12 @@
             "type": "string"
           },
           "workplace_id": {
-            "type": "integer"
+            "type": "integer",
+            "enum": [
+              0,
+              1
+            ],
+            "default": 0
           },
           "sub_location_id": {
             "type": "string"

@@ -13,6 +13,7 @@ class ApiController extends Controller implements ApiInterface
 
     public function get()
     {
+        include '././swagger.json';
     }
 
     public function put()

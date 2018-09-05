@@ -47,9 +47,8 @@ services:
   sleas-swagger:
     image: swaggerapi/swagger-ui
     environment:
-      - SWAGGER_JSON=./sleas-swagger/www/swagger.json
-    volumes:
-      - ./sleas-swagger/www/:/var/www/html
+      - SWAGGER_JSON=./sleas-api/www/swagger.json
+      - API_URL=http://localhost/v2
     restart: always
     ports:   ["1337:8080"]
      

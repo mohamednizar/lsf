@@ -13,7 +13,7 @@ $router->group( ['prefix'=>'v2'],  function($router){
     
     $router->any('v2', function () {
         $api = new \Controllers\ApiController();
-        return ($api->getIndex());
+        return ($api->get());
     });
 
     $router->filter('auth', function () {

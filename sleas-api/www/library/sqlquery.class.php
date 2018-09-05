@@ -8,6 +8,10 @@ class SQLQuery {
 
     /** Connects to database **/
 
+    function __construct(){
+        $this->connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+    }
+
     function connect($address, $account, $pwd, $name) {
         $this->_mysqli =  mysqli_connect($address,$account, $pwd, $name);
         if ($this->_mysqli != null) {
@@ -46,7 +50,7 @@ class SQLQuery {
 	function query($query, $singleResult = 0) {
 
         $this->_result = mysqli_query($this->_mysqli,$query);
-    
+
 		if (preg_match("/select/i",$query)) {
 		$result = array();
 		$table = array();
