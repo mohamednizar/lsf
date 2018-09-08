@@ -1,0 +1,1486 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CS-HRM</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>CS-HRM</h1>
+    <div class="app-desc">This is the CS-HRM api server. Here you find all APIs related to the system. The api can be find on github</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="nizarm@opensource.lk">nizarm@opensource.lk</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/v2</div>
+    <div class="license-info">Apache 2.0</div>
+    <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+  
+    <ol>
+    
+      <li>HTTP Basic Authentication</li>
+    
+    </ol>
+  
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  
+  
+  
+  <h4><a href="#User">User</a></h4>
+  <ul>
+  
+  <li><a href="#createUser"><code><span class="http-method">post</span> /employee</code></a></li>
+  
+  <li><a href="#createUsersWithArrayInput"><code><span class="http-method">post</span> /employee/createWithArray</code></a></li>
+  
+  <li><a href="#createUsersWithListInput"><code><span class="http-method">post</span> /employee/createWithList</code></a></li>
+  
+  <li><a href="#deleteFile"><code><span class="http-method">delete</span> /employee/employeeAttachments</code></a></li>
+  
+  <li><a href="#deleteUser"><code><span class="http-method">delete</span> /user/{username}</code></a></li>
+  
+  <li><a href="#getUserByName"><code><span class="http-method">get</span> /user/{username}</code></a></li>
+  
+  <li><a href="#listEmployees"><code><span class="http-method">get</span> /employee/list/{pageId}</code></a></li>
+  
+  <li><a href="#loginUser"><code><span class="http-method">post</span> /user/login</code></a></li>
+  
+  <li><a href="#logoutUser"><code><span class="http-method">get</span> /user/logout</code></a></li>
+  
+  <li><a href="#readFile"><code><span class="http-method">get</span> /employee/employeeAttachments</code></a></li>
+  
+  <li><a href="#statusUpdate"><code><span class="http-method">post</span> /user/statusUpdate</code></a></li>
+  
+  <li><a href="#updateUser"><code><span class="http-method">post</span> /user/register</code></a></li>
+  
+  <li><a href="#updateUser_1"><code><span class="http-method">put</span> /user/{username}</code></a></li>
+  
+  <li><a href="#uploadFile"><code><span class="http-method">put</span> /employee/employeeAttachments</code></a></li>
+  
+  <li><a href="#uploadFile_2"><code><span class="http-method">post</span> /employee/employeeAttachments</code></a></li>
+  
+  <li><a href="#uploadImage"><code><span class="http-method">post</span> /user/uploadpic/{userId}</code></a></li>
+  
+  </ul>
+  
+  
+  
+
+  
+  
+  
+  <h1><a name="User">User</a></h1>
+  
+  <div class="method"><a name="createUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /employee</code></pre></div>
+    <div class="method-summary">Create an Employee (<span class="nickname">createUser</span>)</div>
+    
+    <div class="method-notes">This can only be done by the logged in user with permission for create employees.</div>
+
+    
+
+    
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">default</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="createUsersWithArrayInput"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /employee/createWithArray</code></pre></div>
+    <div class="method-summary">Creates list of Employees with given input array (<span class="nickname">createUsersWithArrayInput</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">default</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="createUsersWithListInput"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /employee/createWithList</code></pre></div>
+    <div class="method-summary">Creates list of Employees with given input array (<span class="nickname">createUsersWithListInput</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">default</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="deleteFile"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /employee/employeeAttachments</code></pre></div>
+    <div class="method-summary">Update Employee related files (<span class="nickname">deleteFile</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">fileInfo (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash;  </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      ApiResponse
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="deleteUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /user/{username}</code></pre></div>
+    <div class="method-summary">Delete user (<span class="nickname">deleteUser</span>)</div>
+    
+    <div class="method-notes">This can only be done by the logged in user.</div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The name that needs to be deleted </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">400</h4>
+    Invalid username supplied
+        
+    
+    
+    <h4 class="field-label">404</h4>
+    User not found
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="getUserByName"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/{username}</code></pre></div>
+    <div class="method-summary">Get user by user name (<span class="nickname">getUserByName</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The name that needs to be fetched. Use user1 for testing. </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      User
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/xml</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+    <h4 class="field-label">400</h4>
+    Invalid username supplied
+        
+    
+    
+    <h4 class="field-label">404</h4>
+    User not found
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="listEmployees"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /employee/list/{pageId}</code></pre></div>
+    <div class="method-summary">list of users with given page as pagination (<span class="nickname">listEmployees</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">pageId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The page id should be provided </div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      array[Personal_Details]
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/xml</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="loginUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/login</code></pre></div>
+    <div class="method-summary">Logs user into the system (<span class="nickname">loginUser</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+    
+      <li><code>application/x-www-form-urlencoded</code></li>
+    
+    </ul>
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/xml</code></li>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+    <h4 class="field-label">400</h4>
+    Invalid username/password supplied
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="logoutUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/logout</code></pre></div>
+    <div class="method-summary">Logs out current logged in user session (<span class="nickname">logoutUser</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">default</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="readFile"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /employee/employeeAttachments</code></pre></div>
+    <div class="method-summary">Read Employee related files (<span class="nickname">readFile</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of user to update format: int64</div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      ApiResponse
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="statusUpdate"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/statusUpdate</code></pre></div>
+    <div class="method-summary">Status  update (<span class="nickname">statusUpdate</span>)</div>
+    
+    <div class="method-notes">Activate and deactivate an Employee</div>
+
+    
+
+    
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#General_Service">General_Service</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">default</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="updateUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/register</code></pre></div>
+    <div class="method-summary">Register a user (<span class="nickname">updateUser</span>)</div>
+    
+    <div class="method-notes">This can only be done by anyone with IDM-Gov</div>
+
+    
+
+    
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">400</h4>
+    Invalid user supplied
+        
+    
+    
+    <h4 class="field-label">404</h4>
+    User not found
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="updateUser_1"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /user/{username}</code></pre></div>
+    <div class="method-summary">Updated user (<span class="nickname">updateUser_1</span>)</div>
+    
+    <div class="method-notes">This can only be done by the logged in user.</div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; name that need to be updated </div>
+    </div>  <!-- field-items -->
+    
+
+    
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">400</h4>
+    Invalid user supplied
+        
+    
+    
+    <h4 class="field-label">404</h4>
+    User not found
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="uploadFile"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /employee/employeeAttachments</code></pre></div>
+    <div class="method-summary">Update Employee related files (<span class="nickname">uploadFile</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of user to update format: int64</div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      ApiResponse
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="uploadFile_2"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /employee/employeeAttachments</code></pre></div>
+    <div class="method-summary">uploads Employee related files (<span class="nickname">uploadFile_2</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      ApiResponse
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  <div class="method"><a name="uploadImage"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /user/uploadpic/{userId}</code></pre></div>
+    <div class="method-summary">uploads an image (<span class="nickname">uploadImage</span>)</div>
+    
+    <div class="method-notes"></div>
+
+    
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">userId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of user to update format: int64</div>
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#object">object</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+    
+
+    
+
+    
+
+    
+    <h3 class="field-label">Form parameters</h3>
+    <div class="field-items">
+      
+    </div>  <!-- field-items -->
+    
+
+    
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      ApiResponse
+    </div>
+    
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    
+
+    
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+    
+      <li><code>application/json</code></li>
+    
+    </ul>
+    
+
+    <h3 class="field-label">Responses</h3>
+    
+    <h4 class="field-label">200</h4>
+    successful operation
+        
+    
+    
+  </div> <!-- method -->
+  <hr/>
+  
+  
+  
+  
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+  
+  
+    <li><a href="#ApiResponse"><code>ApiResponse</code></a></li>
+  
+  
+  
+    <li><a href="#Contact_Details"><code>Contact_Details</code></a></li>
+  
+  
+  
+    <li><a href="#Current_Service"><code>Current_Service</code></a></li>
+  
+  
+  
+    <li><a href="#General_Service"><code>General_Service</code></a></li>
+  
+  
+  
+    <li><a href="#Personal_Details"><code>Personal_Details</code></a></li>
+  
+  
+  
+    <li><a href="#User"><code>User</code></a></li>
+  
+  
+  </ol>
+
+  
+  
+  <div class="model">
+    <h3><a name="ApiResponse"><code>ApiResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3><a name="Contact_Details"><code>Contact_Details</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">ID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+      
+      <div class="param">person_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">address_type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">address_1 (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">address_2 (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">address_3 (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">postal_code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">mobile (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">telephone (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3><a name="Current_Service"><code>Current_Service</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">ID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+      
+      <div class="param">person_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">service_mode (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">service_status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">work_place_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">sub_location_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">work_branch_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">work_division_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">designation_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">appoint_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">duty_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">duty_date_terminate (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">off_letter_no (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">date_promoted (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">salary_drawned (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">barcode (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">user_updated (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3><a name="General_Service"><code>General_Service</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">ID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+      
+      <div class="param">date_join (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">way_join (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Way of join to MoE </div>
+      
+      <div class="param">cadre (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">grade_join (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">entrance_exam_rank (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">subject (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">medium (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">confirm (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">confirm_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">promotion_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">f_appoint_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">eb_1_pass (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">eb_2_pass (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">eb_3_pass (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">pg_dip_pass (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">pg_deg_pass (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">cb_1_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">cb_2_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">cb_3_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      <div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">deactivate_type_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">deactivate_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3><a name="Personal_Details"><code>Personal_Details</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">ID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span>  format: int64</div>
+      
+      <div class="param">NIC (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">f_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> First Name of the Employee </div>
+      
+      <div class="param">l_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Last Name of the Employee </div>
+      
+      <div class="param">m_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Middle Name of the Employee </div>
+      
+      <div class="param">in_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name with Initials  of the Employee </div>
+      
+      <div class="param">si_in_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Fullname  of the Employee in Sinhala </div>
+      
+      <div class="param">ta_in_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Fullname  of the Employee in Tamil </div>
+      
+      <div class="param">dob (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">ethinicity (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">gender (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">civil_status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">f_appoint_data (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">f_appoint_type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">active (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">profile_pic (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">user_updated (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  
+  <div class="model">
+    <h3><a name="User"><code>User</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">ID (optional)</div><div class="param-desc"><span class="param-type"><a href="#long">Long</a></span> Employee index format: int64</div>
+      
+      <div class="param">user_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> username of the employee </div>
+      
+      <div class="param">passwd (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> password of the employee format: password</div>
+      
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">level (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">workplace_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">0</div><div class="param-enum">1</div>
+      
+      <div class="param">sub_location_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+      
+      <div class="param">person_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+      
+      <div class="param">Personal_Details (optional)</div><div class="param-desc"><span class="param-type"><a href="#Personal_Details">Personal_Details</a></span>  </div>
+      
+      <div class="param">Permanent_Contact_Details (optional)</div><div class="param-desc"><span class="param-type"><a href="#Contact_Details">Contact_Details</a></span>  </div>
+      
+      <div class="param">Temparary_Contact_Details (optional)</div><div class="param-desc"><span class="param-type"><a href="#Contact_Details">Contact_Details</a></span>  </div>
+      
+      <div class="param">General_Service (optional)</div><div class="param-desc"><span class="param-type"><a href="#General_Service">General_Service</a></span>  </div>
+      
+      <div class="param">Current_Service (optional)</div><div class="param-desc"><span class="param-type"><a href="#Current_Service">Current_Service</a></span>  </div>
+      
+      
+    </div>  <!-- field-items -->
+  </div>
+  
+  
+  </body>
+</html>

@@ -16,8 +16,8 @@ class Controller
     public $_allow = array();
     public $_content_type = "application/json";
     public $_request = array();
-	private $_method = "";
-	public $_inputs;
+    private $_method = "";
+    public $_inputs;
     private $_code = 200;
 
     public function __construct($model, $controller)
@@ -33,11 +33,11 @@ class Controller
         return $_SERVER['HTTP_REFERER'];
     }
 
-    public function response($data, $status,$message)
+    public function response($data, $status, $message)
     {
         $this->_code = ($status) ? $status : 200;
-		$this->set_headers();
-		processOutput($data,$message);
+        $this->set_headers();
+        processOutput($data, $message);
         exit;
     }
 
@@ -98,10 +98,13 @@ class Controller
 
         switch ($this->get_request_method()) {
             case "POST":
-                $this->_request = $this->cleanInputs($_POST);
+                $this->_request = (file_get_contents("php://input"));
+				// $this->_request = $this->cleanInputs($this->_request);
+				$this->_request= jsonDecode($this->_request, true );
+				// var_dump($this->_request);
                 break;
             case "GET":
-                $this->_request = $this->cleanInputs($_GET);
+                parse_str(file_get_contents("php://input"), $this->_request);
                 break;
             case "DELETE":
                 parse_str(file_get_contents("php://input"), $this->_request);
@@ -114,8 +117,8 @@ class Controller
             default:
                 $this->response('', 406);
                 break;
-		}
-		return $this->_request;
+        }
+        return $this->_request;
     }
 
     private function cleanInputs($data)

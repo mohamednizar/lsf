@@ -13,3 +13,19 @@ define('DB_HOST', 'db');
 //JWT Variables
 define('IIS', $_SERVER['REMOTE_ADDR']);
 define('AUD', $_SERVER['HTTP_HOST']);
+
+
+$config = array(
+    'driver' => 'mysql', // Db driver
+    'host' => DB_HOST,
+    'database' => DB_NAME,
+    'username' => DB_USER,
+    'password' => DB_PASSWORD,
+    'charset' => 'utf8', // Optional
+    'collation' => 'utf8_unicode_ci', // Optional
+    'options' => array( // PDO constructor options, optional
+        PDO::ATTR_TIMEOUT => 5,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ),
+);
+new \Pixie\Connection('mysql', $config,'QB');

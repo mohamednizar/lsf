@@ -122,7 +122,7 @@ class Register extends CI_Controller {
         $person_id_array = $this->Form_data_model->get_recent_person_id();
         $person_id = $person_id_array['0']['ID'] + 1;
 
-//********** Populate data arrays **********//
+        //********** Populate data arrays **********//
         $personal_details = array('ID' => $person_id, 'nic' => $nic, 'title' => $title, 'f_name' => $fname, 'si_in_name' => $si_inname, 'ta_in_name' => $ta_inname, 'm_name' => $mname, 'l_name' => $lname, 'in_name' => $inname, 'dob' => date("y-m-d", strtotime($dob)), 'ethinicity' => $ethnicity, 'gender' => $gender , 'civil_status' => $civil_st, 'user_updated' => $this->session->username);
 
         $contact_details_per = array('person_id' => $person_id, 'nic' => $nic, 'address_type' => 'permanant', 'address_1' => $address1, 'address_2' => $address2, 'address_3' => $address3, 'postal_code' => $pocode, 'mobile' => $mobile, 'telephone' => $landp, ' 	email' => $email);

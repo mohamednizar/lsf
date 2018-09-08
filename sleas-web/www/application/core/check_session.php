@@ -9,4 +9,4 @@ class CI_check_session extends CI_Controller {
 			redirect('login/index');
 		}//Redirect to login page if session not initiated.
 	}
-?>
+}

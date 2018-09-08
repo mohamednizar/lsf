@@ -5,14 +5,17 @@ use Lib\Auth;
 use Lib\Controller;
 use Models\User;
 use \Dsheiko\Validate;
+use Lib\Session;
 
 class LoginController extends Controller
 {
 
     public $_inputs;
+    private $_auth;
 
     public function __construct()
     {
+        $this->_auth = new Auth();
         $this->_inputs = $this->inputs();
         $this->User = new User();
     }
@@ -32,9 +35,10 @@ class LoginController extends Controller
                 $chk_login = $this->User->check_login($uname, $pwd);
                 if ($chk_login == 1) {
                     $data = $this->User->login($uname, $pwd);
-                    $_SESSION['username'] = $uname;
+                    Session::start();
+                    Session::write('username',$uname);
                     $auth = new Auth();
-                    $token = $auth->IssueToken($data);
+                    $token = $this->_auth->IssueToken($data);
                     
                     $result = [
                         "token"=> $token
@@ -51,5 +55,9 @@ class LoginController extends Controller
             $this->response($result,400,$v->getMessages());
         }
 
+    }
+
+    public function logout(){
+        $this->_auth->doExpire();
     }
 }

@@ -31,9 +31,18 @@ $router->group( ['prefix'=>'v2'],  function($router){
     
     });
     
+
+    $router->post('v2/user/register',function(){
+        $user = new \Controllers\UserController();
+        return $user->post();
+    });
+
     $router->post('v2/user/login', function () {
         $login = new \Controllers\LoginController();
         return $login->post();
     });
+
+  
+    
 });
 

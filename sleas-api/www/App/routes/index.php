@@ -11,12 +11,12 @@ try {
 
 } catch (Phroute\Exception\HttpRouteNotFoundException $e) {
 
-    print_r($e);
+    print_r($e->getMessage());
     die();
 
 } catch (Phroute\Exception\HttpMethodNotAllowedException $e) {
 
-    print_r($e);
+    print_r($e->getMessage());
     die();
 
 }

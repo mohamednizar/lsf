@@ -1,15 +1,22 @@
 <?php
 namespace Lib;
-class Model extends SQLQuery {
+use QB;
+class Model extends QB {
 	protected $_model;
 
 	function __construct() {
-
-		$this->connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
-		$this->_model = get_class($this);
-		$this->_table = strtolower($this->_model);
 	}
 
 	function __destruct() {
 	}
+
+	public function findLastId()
+    {
+        $results = QB::table($this->_table)
+        ->select('ID')
+        ->orderBy('ID', 'DESC')
+        ->first();
+        return $results->ID;
+    }
+
 }
