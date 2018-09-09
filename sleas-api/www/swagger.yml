@@ -396,7 +396,7 @@ paths:
         - cs_auth:
             - 'write:user'
             - 'read:user'
-  /user/statusUpdate:
+  /employee/statusUpdate:
     post:
       tags:
         - user
@@ -414,7 +414,40 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/General_Service'
+              type: object
+              properties:
+                userId:
+                  type: integer
+                status:
+                  type: integer
+                  enum: [0,1]
+        description: Status update user object
+        required: true
+  /employee/approveReject:
+    post:
+      tags:
+        - user
+      summary: Status  update
+      description: Activate and deactivate an Employee
+      operationId: approveReject
+      responses:
+        default:
+          description: successful operation
+      security:
+        - cs_auth:
+            - 'write:user'
+            - 'read:user'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                approved:
+                  type: integer
+                  enum: [0,1]
         description: Status update user object
         required: true
 components:
@@ -472,46 +505,54 @@ components:
           type: "integer"
           format: "int64"
         user_name:
-          descripttion: Username of the Employee for login to the HR system
+          description: Username of the Employee for login to the HR system
           type: "string"
           example:  user1
         passwd:
           type: "string"
-          format: "password"
-          descripttion: Password of the Employee for login to the HR system
-          example:  "%^shjla"
+          description: Password of the Employee for login to the HR system
+          example:  "123456"
         level:
           type: "string"
         workplace_id:
           type: "integer"
         sub_location_id:
-          type: "string"
+          type: integer
+          minimum: 1
+          maximum: 20
+          example:  2
         person_id:
           type: "integer"
     Personal_Details:
       type: object
+      required:
+        - NIC
+        - title
+        - f_name
+        - l_name
+        - in_name
+        - dob
+        - ethinicity
+        - gender
+        - civil_status
       properties:
         ID:
           type: integer
           format: int64
         NIC:
           type: string
-          required: true
           example:  123456789V
         title:
           type: string
-          required: true
           enum:  ['Rev','Mr','Mrs',Rev. Dr.,Dr,Dr. (Ms),Dr. (Mrs)]
         f_name:
           type: string
           description: First Name of the Employee 
           example:  Rathnayaka Mudalige
-          required: true
         l_name:
           type: string
           description: Last Name of the Employee
           example:  Rathnayaka
-          required: true
         m_name:
           type: string
           description: Middle Name of the Employe
@@ -527,25 +568,20 @@ components:
         ta_in_name:
           type: string
           description: Fullname  of the Employee in Tamil
-          require: true
           example: ஆர்.எம்.பி.எம்.ரத்நாயக்க
         dob:
           type: integer
           format: date
           example:  '1963-09-19'
-          required: true
         ethinicity:
           type: string
           enum: [Sinhala,Sri Lankan Tamil,Indian Tamil,Muslim,Burger,Malay,Other]
-          required: true
         gender:
           type: string
           enum: ['Male','Female']
-          required: true
         civil_status:
           type: string
           enum: ['Married','Single','Divorced','Widowed']
-          required: true
         f_appoint_data:
           type: integer
           format: date
@@ -558,25 +594,32 @@ components:
           enum: [1,0]
         profile_pic:
           type: string
-          format: url
-          example:  https://example.com/profilepic/jfskljkfsdl
+          format: uri
         user_updated:
           type: string
           example: user1
+        approved:
+          type: integer
+          enum: [0,1]
     Contact_Details:
       type: object
+      required:
+        - address_type
+        - address_1
+        - address_2
+        - postal_code
+        - mobile
+        - email
       properties:
         ID:
           type: integer
           format: int64
         address_type:
           type: string
-          required: true
           enum: ['Permanant','Temperary']
         address_1:
           type: string
           example:  50/A/11 6th lane
-          required: true
         address_2:
           type: string
           example:  Hansagiri Road
@@ -597,6 +640,11 @@ components:
           format: email
     General_Service:
       type: object
+      required:
+        - date_join
+        - way_join
+        - cadre
+        - grade_join
       properties:
         ID:
           type: integer
@@ -604,26 +652,22 @@ components:
         date_join:
           type: string
           format: date
-          required: true
           example: '2016-01-12'
         way_join:
           type: string
-          required: true
           description: Way of join to MoE
           enum: [Open,Limited,Merit,Super Numeral (PVC)]
         cadre:
           type: string
-          required: true
           enum: [General Cadre,Special Cadre,Not Specified]
         grade_join:
           type: string
-          enum: [Special,Grade I,Grade II,Grade II]
-          required: true
+          enum: [Special,Grade I,Grade II,Grade III]
         entrance_exam_rank:
           type: integer
         grade:
           type: string
-          enum: [Special,Grade I,Grade II,Grade II]
+          enum: [Special,Grade I,Grade II,Grade III]
         subject:
           type: integer
         medium:
@@ -678,6 +722,7 @@ components:
           example: '2014-08-12'
         status:
           type: string
+          enum: [Active,Inactive]
         deactivate_type_id:
           type: integer
         deactivate_date:
@@ -686,12 +731,18 @@ components:
           example: '2018-08-12'
     Current_Service:
       type: object
+      required:
+        - servics_sector
+        - service_mode
       properties:
         ID:
           type: integer
           format: int64
         person_id:
           type: integer
+        servics_sector:
+          type: string
+          enum: [sleas,sltes,slps,slts,cs,ncs]
         service_mode:
           type: integer
           enum: [First appointment,Promotion,Transfer,Promotion / Transfer,Attachment,Secondment,Releasement,Acting Duty,Performing Duty,Placement]
@@ -700,56 +751,155 @@ components:
           enum: [First appointment,Promotion,Transfer,Promotion / Transfer,Attachment,Secondment,Releasement,Acting Duty,Performing Duty,Placement]
         work_place_id:
           type: integer
-          enum: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
-          items: 
-              1:  Ministry of Education
-              2:  Department of Examinations
-              3:  Department of Education Publication
-              4:  National Institute of Education
-              5:  Provincial Department of Education
-              6:  Provincial Ministry of Education
-              7:  Zonal Education Office
-              8:  Divisional Education Office
-              9:  National College of Education
-              10: Teacher Training College
-              11: Teacher Centers
-              12: Provincial ICT Education Centre (PICTEC)
-              13: Zonal ICT Education Centre (ZICTEC/CRC)
-              14: Education Resource Centre
-              15: Provincial Education Development Center
-              16: National School
-              17: Provincial School
-              18: Provinces
+          enum: 
+            - value:  1
+              description:  Ministry of Education
+            - value:  2
+              description: Department of Examinations
+            - value:  3
+              description:  Department of Education Publication
+            - value:  4
+              description:  National Institute of Education
+            - value:  5
+              description:  Provincial Department of Education
+            - value:  6
+              description:  Provincial Ministry of Education
+            - value:  7
+              description:   Zonal Education Office
+            - value:  8
+              description: Divisional Education Office
+            - value:  9
+              description:  National College of Education
+            - value:  10
+              description:  Teacher Training College
+            - value:  11
+              description:  Teacher Centers
+            - value:  12
+              description:  Provincial ICT Education Centre (PICTEC)
+            - value:  13
+              description:  Zonal ICT Education Centre (ZICTEC/CRC)
+            - value:  14
+              description: Education Resource Centre
+            - value:  15
+              description:  Provincial Education Development Center
+            - value:  16
+              description:  National School
+            - value:  17
+              description:  Provincial School
+            - value:  18
+              description:  Provinces
         sub_location_id:
           type: integer
+          minimum: 1
+          maximum: 20
+          example:  2
         work_branch_id:
           type: integer
+          enum: 
+            - value:  1
+              description:  National Operation Room
         work_division_id:
           type: integer
+          enum: 
+            - value:  1
+              description:  Educational Quality Development
+            - value:  2
+              description:  Policy Planning & Performance Review
+            - value:  3
+              description:  Education Services Establishment
+            - value:  4
+              description:  Procurement & Construction
+            - value:  5
+              description:  School Affairs
+            - value:  6
+              description:  Administration and Finance
+            - value:  7
+              description:  Languages, Humanities & Social Sciences
+            - value:  8
+              description:  Science & Technology
+            - value:  9
+              description:  Education Leadership, Development Management
+            - value:  10
+              description:  Alternative Education & Teacher Education
+            - value:  11
+              description:  Administration, Finance & Support Services
+            - value:  12
+              description:  Production & Distribution
+            - value:  12
+              description:  Development
+            - value:  14
+              description:  School Examination Testing Service
+            - value:  15
+              description:  Agency Examination Testing Service
+            - value:  16
+              description:  Orientation Programme
+            - value:  17
+              description:  Education Services Establishment
         designation_id:
           type: integer
+          enum: 
+            - value:  1
+              description:  Additional Secretary of the Ministry of Education 
+            - value:  2
+              description:  Commissioner General of Examinations
+            - value:  3
+              description:  Commissioner General of Educational Publications
+            - value:  4
+              description:  Chief Commissioner (Teacher Education)
+            - value:  5
+              description:  Director of Education
+            - value:  6
+              description:  Deputy Director of Education
+            - value: 7
+              description:  Assistant Director of Education
+            - value: 8
+              description:  Additional Director of Education
+            - value:  9
+              description:  Commissioner of Examinations
+            - value:  10
+              description:  Deputy Commissioner of Examinations
+            - value:  11
+              description:  Assistant Commissioner of Examinations
+            - value:  12
+              description:  Commissioner of Educational Publications
+            - value:  13
+              description:  Commissioner of Educational Publications
+            - value:  14
+              description:  Assistant Commissioner of Educational Publications
+            - value:  15
+              description:  Principal
+            - value:  16
+              description:  Deputy Principal
         appoint_date:
           type: string
           format: date
+          example:  '2012-05-08'
         duty_date:
           type: string
           format: date
+          example:  '2012-05-08'
         duty_date_terminate:
           type: string
           format: date
+          example:  '2011-05-08'
         off_letter_no:
           type: string
+          example:  ED/4/58/25/3/G/
         grade:
           type: string
+          enum: [Special,Grade I,Grade II,Grade III]
         date_promoted:
           type: string
           format: date
+          example:  '2011-05-08'
         salary_drawned:
           type: string
         barcode:
           type: integer
+          example:  54456445664
         user_updated:
           type: integer
+          example:  user1
     ApiResponse:
       type: object
       properties:

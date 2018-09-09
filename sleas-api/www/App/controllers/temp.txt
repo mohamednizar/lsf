@@ -83,3 +83,121 @@
             $release_official_letter = ($this->_inputs['rel_official_letter_no']);
             $release_place = ($this->_inputs['release_place']);
             $release_salary_drawn = ($this->_inputs['release_salary_drawn']);
+
+            - value: 1
+              description:  Western Provincial Department of Education
+              type: provincial_office
+            - value: 2
+              description:  Central Provincial Department of Education
+              type: provincial_office
+            - value: 3
+              description:  Southern Provincial Department of Education
+              type: provincial_office
+            - value: 4
+              description:  Northern Provincial Department of Education
+              type: provincial_office
+            - value:  5
+              description: Eastern Provincial Department of Education
+              type: provincial_office
+            - value:  6
+              description:  North Western Provincial Department of Education
+              type: provincial_office
+            - value:  7
+              description:  North Central Provincial Department of Education
+              type: provincial_office 
+            - value:  8
+              description:  Uva Provincial Department of Education
+              type: provincial_office 
+            - value:  9
+              description: Sabaragamuwa Provincial Department of Education
+              type: provincial_office
+            - value:  10
+              description:  Western Provincial Ministry of Education
+              type: provincial_office 
+            - value:  11
+              description:  Central Provincial Ministry of Education
+              type: provincial_office
+            - value:  12
+              description:  Southern Provincial Ministry of Education
+              type: provincial_office
+            - value:  13
+              description:  Northern Provincial Ministry of Education
+              type: provincial_office
+            - value:  14
+              description:  Eastern Provincial Ministry of Education
+              type: provincial_office 
+            - value:  15
+              description:  Eastern Provincial Ministry of Education
+              type: provincial_office 
+            - value:  16
+              description: North Central Provincial Ministry of Education
+              type: provincial_office
+            - value:  17
+              description:  Uva Provincial Ministry of Education
+              type: provincial_office 
+            - value:  18
+              description:  Sabaragamuwa Provincial Ministry of Education
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office 
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office 
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office 
+            - value:  
+              description: 
+              type: provincial_office
+            - value:  
+              description:
+              type: provincial_office 
+            - value:  
+              description:
+              type: provincial_office

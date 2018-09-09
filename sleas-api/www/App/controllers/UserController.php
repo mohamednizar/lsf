@@ -16,6 +16,7 @@ class UserController extends ApiController
     private $temperary_contact_details;
     private $account_details;
     private $general_service;
+    private $current_service;
 
     public function __construct()
     {
@@ -45,6 +46,7 @@ class UserController extends ApiController
             $this->setTempContactDetails();
             $this->setAccountDetails();
             $this->setGeneralServiceDetails();
+            $this->setCurrentSerivceDetails();
 
             if ($this->_error != []) {
                 $this->response(null, 400, $this->_error);
@@ -383,6 +385,39 @@ class UserController extends ApiController
 
     private function getGeneralServiceDetails(){
         return $this->temperary_contact_details;
+    }
+
+    private function setCurrentSerivceDetails(){
+        $current_service = $this->_inputs['Current_Service'];
+        $validator = new Validator;
+
+        $validation = $validator->make($current_service, [
+            'service_mode' => 'required',
+            'service_sector'=> 'required',
+            'work_place_id'=>   'required|numaric',
+            'sub_location_id'=>   'numaric',
+            'work_branch_id'=>   'required|numaric',
+            'work_division_id'=>   'required|numaric',
+            'designation_id'=>   'required|numaric',
+            'appoint_date'  => 'required|date:Y-m-d',
+            'duty_date'  => 'required|date:Y-m-d',
+            'off_letter_no'  =>  'required|numaric'
+        ]);
+
+        $validation->setAliases([
+            'off_letter_no' => 'Offer Letter No'
+        ]);
+
+        $validation->validate();
+
+        if ($validation->fails()) {
+            $errors = $validation->errors();
+            $this->_error['Current_Service'] = $errors->firstOfAll();
+        } else {
+            $this->current_service = $current_service;
+        }
+
+
     }
 
     public function put(Type $var = null)
